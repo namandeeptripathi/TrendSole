@@ -24,4 +24,4 @@ COPY --from=build /app/target/trendsole-1.0.0.jar app.jar
 EXPOSE 8080
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
