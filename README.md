@@ -1,6 +1,6 @@
-# 👟 TrendSole - E-Commerce Shoe Store
+# 👟 Trendsole - E-Commerce Fashion Store
 
-TrendSole is a modern, fully-functional **E-Commerce Web Application** designed specifically for a premium Shoe Store. The application features a robust **Spring Boot REST API** backend, a persistent **MySQL Database**, and an interactive, responsive **HTML5/CSS3/JavaScript Frontend** integrated seamlessly to deliver a smooth shopping experience.
+TrendSole is a modern, fully-functional **E-Commerce Web Application** designed specifically for a premium Fashion Store. The application features a robust **Spring Boot REST API** backend, a persistent **MySQL Database**, and an interactive, responsive **HTML5/CSS3/JavaScript Frontend** integrated seamlessly to deliver a smooth shopping experience.
 
 ---
 
@@ -130,7 +130,7 @@ Once the application starts successfully, open your browser and navigate to:
 ```text
 http://localhost:8080
 ```
-You will be greeted by the gorgeous TrendSole landing page where you can browse shoes, manage the cart, and place orders!
+You will be greeted by the gorgeous TrendSole landing page where you can browse products, manage the cart, and place orders!
 
 ---
 
