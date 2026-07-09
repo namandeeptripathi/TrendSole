@@ -63,11 +63,13 @@ function displayCartItems(cartItems) {
     // If cart is empty
     if (cartItems.length === 0) {
         container.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">🛒</div>
+            <div class="empty-state reveal revealed">
+                <div class="empty-icon-wrapper">
+                    <i class="bi bi-bag-x empty-icon-pulse"></i>
+                </div>
                 <h4>Your Cart is Empty</h4>
-                <p>Looks like you haven't added any products yet.</p>
-                <a href="products.html" class="btn-primary-custom">
+                <p class="text-secondary mx-auto" style="max-width: 420px; font-size: 0.95rem; line-height:1.7;">Looks like you haven't added any products yet. Elevate your style with TrendSole's premium collection.</p>
+                <a href="products.html" class="btn-primary-custom mt-4">
                     <i class="bi bi-bag-plus me-1"></i> Start Shopping
                 </a>
             </div>`;

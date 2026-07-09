@@ -31,14 +31,16 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="products.html?category=Footwear"><i class="bi bi-shoe"></i> Footwear</a></li>
-                            <li><a class="dropdown-item" href="products.html?category=Clothing"><i class="bi bi-person-badge"></i> Clothing</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Footwear"><i class="bi bi-shoe-prints"></i> Footwear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Clothing"><i class="bi bi-tag"></i> Clothing</a></li>
                             <li><a class="dropdown-item" href="products.html?category=Accessories"><i class="bi bi-watch"></i> Accessories</a></li>
                             <li><a class="dropdown-item" href="products.html?category=Bags"><i class="bi bi-bag"></i> Bags</a></li>
-                            <li><a class="dropdown-item" href="products.html?category=Activewear"><i class="bi bi-lightning"></i> Activewear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Activewear"><i class="bi bi-lightning-charge"></i> Activewear</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="products.html?view=wishlist"><i class="bi bi-heart"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?sort=new">New Arrivals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#sale-section" style="color: var(--accent-rose);">Sale</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?view=wishlist"><i class="bi bi-heart"></i> <span class="wishlist-badge" id="wishlistCount" style="display:none;">0</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-bag"></i> <span class="cart-badge" id="cartCount">0</span></a></li>
                 </ul>
             </div>
@@ -46,7 +48,7 @@
     </nav>
 
     <!-- ========== PAGE HEADER ========== -->
-    <section class="page-header" style="margin-top: 76px;">
+    <section class="page-header">
         <div class="container">
             <h1><i class="bi bi-credit-card me-2"></i>Checkout</h1>
             <nav aria-label="breadcrumb">
@@ -115,22 +117,22 @@
                                 <i class="bi bi-credit-card me-2"></i>Payment Method
                             </h4>
 
-                            <div class="mb-3">
-                                <div class="form-check mb-3" style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 16px 16px 16px 44px;">
+                             <div class="mb-3">
+                                <div class="form-check payment-option mb-3">
                                     <input class="form-check-input" type="radio" name="payment" id="cod" value="cod" checked>
-                                    <label class="form-check-label" for="cod" style="color: var(--text-secondary); cursor:pointer;">
+                                    <label class="form-check-label" for="cod">
                                         <i class="bi bi-cash-coin me-2"></i> Cash on Delivery (COD)
                                     </label>
                                 </div>
-                                <div class="form-check mb-3" style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 16px 16px 16px 44px;">
+                                <div class="form-check payment-option mb-3">
                                     <input class="form-check-input" type="radio" name="payment" id="upi" value="upi">
-                                    <label class="form-check-label" for="upi" style="color: var(--text-secondary); cursor:pointer;">
+                                    <label class="form-check-label" for="upi">
                                         <i class="bi bi-phone me-2"></i> UPI Payment
                                     </label>
                                 </div>
-                                <div class="form-check" style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 16px 16px 16px 44px;">
+                                <div class="form-check payment-option">
                                     <input class="form-check-input" type="radio" name="payment" id="card" value="card">
-                                    <label class="form-check-label" for="card" style="color: var(--text-secondary); cursor:pointer;">
+                                    <label class="form-check-label" for="card">
                                         <i class="bi bi-credit-card-2-front me-2"></i> Credit / Debit Card
                                     </label>
                                 </div>

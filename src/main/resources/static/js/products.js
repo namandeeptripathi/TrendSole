@@ -185,6 +185,7 @@ function createProductCard(product, index) {
 // ==========================================
 function searchProducts() {
     var searchTerm = document.getElementById('searchInput').value.trim();
+    var clearBtn = document.getElementById('clearSearchBtn');
 
     // Exit wishlist view if searching
     if (isWishlistView) {
@@ -193,9 +194,11 @@ function searchProducts() {
     }
 
     if (searchTerm === '') {
-        // If search is empty, show all products
+        if (clearBtn) clearBtn.style.display = 'none';
         displayProducts(allProducts);
         return;
+    } else {
+        if (clearBtn) clearBtn.style.display = 'block';
     }
 
     // Call the search API
@@ -209,6 +212,13 @@ function searchProducts() {
         .catch(function (error) {
             console.error('Error searching products:', error);
         });
+}
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    var clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) clearBtn.style.display = 'none';
+    displayProducts(allProducts);
 }
 
 // ==========================================
@@ -225,6 +235,8 @@ function filterByCategory(category, buttonElement) {
 
     // Clear search input
     document.getElementById('searchInput').value = '';
+    var clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) clearBtn.style.display = 'none';
 
     // Exit wishlist view
     if (isWishlistView) {
@@ -346,7 +358,7 @@ function checkUrlParams() {
         // Find and click the matching category button
         var buttons = document.querySelectorAll('.filter-btn');
         for (var i = 0; i < buttons.length; i++) {
-            if (buttons[i].textContent.trim() === category) {
+            if (buttons[i].textContent.trim().toLowerCase().includes(category.toLowerCase())) {
                 buttons[i].click();
                 return;
             }
