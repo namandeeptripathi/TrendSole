@@ -20,8 +20,8 @@
  * - GET  /api/cart                    → Get cart items (for badge count)
  */
 
-// Base URL of our Spring Boot backend
-const API_BASE = 'http://localhost:8080/api';
+// Base URL of our Spring Boot backend (dynamically resolved)
+const API_BASE = window.location.origin + '/api';
 
 // Variable to store all products (used for filtering)
 let allProducts = [];

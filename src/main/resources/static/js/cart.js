@@ -18,8 +18,8 @@
  * - GET    /api/cart/total         → Get cart total
  */
 
-// Base URL of our Spring Boot backend
-const API_BASE = 'http://localhost:8080/api';
+// Base URL of our Spring Boot backend (dynamically resolved)
+const API_BASE = window.location.origin + '/api';
 
 // ==========================================
 // Run this when the page loads

@@ -15,7 +15,7 @@
  */
 
 (async function seedProducts() {
-    const API = 'http://localhost:8080/api/products';
+    const API = window.location.origin + '/api/products';
 
     const products = [
         // ============ FOOTWEAR (12) ============

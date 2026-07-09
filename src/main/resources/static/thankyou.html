@@ -162,7 +162,7 @@
 
         // Update cart badge count
         function updateCartCount() {
-            fetch('http://localhost:8080/api/cart')
+            fetch(window.location.origin + '/api/cart')
                 .then(response => response.json())
                 .then(cartItems => {
                     let total = 0;
