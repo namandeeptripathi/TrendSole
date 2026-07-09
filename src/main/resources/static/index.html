@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendSole — Fashion & Lifestyle Marketplace</title>
+    <meta name="description" content="TrendSole — Discover curated fashion across footwear, clothing, accessories, bags & activewear. Shop premium brands at the best prices.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">⚡ TRENDSOLE</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Shop</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=Footwear"><i class="bi bi-shoe"></i> Footwear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Clothing"><i class="bi bi-person-badge"></i> Clothing</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Accessories"><i class="bi bi-watch"></i> Accessories</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Bags"><i class="bi bi-bag"></i> Bags</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Activewear"><i class="bi bi-lightning"></i> Activewear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html?sort=new">New Arrivals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sale-section" style="color: var(--accent-rose);">Sale</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="openWishlistView()">
+                            <i class="bi bi-heart"></i>
+                            <span class="wishlist-badge" id="wishlistCount" style="display:none;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="bi bi-bag"></i>
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO — Collage Style ========== -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0 hero-content">
+                    <div class="hero-tag">
+                        <span class="tag-dot"></span>
+                        Summer Collection 2026 — Now Live
+                    </div>
+                    <h1 class="hero-title">
+                        Discover Your <span class="gradient-text">Signature</span> Style
+                    </h1>
+                    <p class="hero-subtitle">
+                        Premium fashion across footwear, clothing, accessories & more — from the world's most coveted brands. Your perfect look starts here.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="products.html" class="btn-primary-custom">
+                            <i class="bi bi-bag-check"></i> Shop Now
+                        </a>
+                        <a href="#categories" class="btn-secondary-custom">
+                            <i class="bi bi-arrow-down-circle"></i> Explore
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="stat-number" data-count="500" data-suffix="+">0</div>
+                            <div class="stat-label">Products</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="stat-number" data-count="50" data-suffix="+">0</div>
+                            <div class="stat-label">Brands</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="stat-number" data-count="10" data-suffix="K+">0</div>
+                            <div class="stat-label">Happy Customers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Magazine Collage -->
+                <div class="col-lg-7">
+                    <div class="hero-collage">
+                        <div class="collage-item tall">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Shoes" loading="eager">
+                            <span class="collage-label">Footwear</span>
+                        </div>
+                        <div class="collage-item wide">
+                            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80" alt="Hoodies" loading="eager">
+                            <span class="collage-label">Hoodies</span>
+                        </div>
+                        <div class="collage-item">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="T-Shirts" loading="eager">
+                            <span class="collage-label">T-Shirts</span>
+                        </div>
+                        <div class="collage-item">
+                            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80" alt="Bags" loading="eager">
+                            <span class="collage-label">Bags</span>
+                        </div>
+                        <div class="collage-item">
+                            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&q=80" alt="Watches" loading="eager">
+                            <span class="collage-label">Watches</span>
+                        </div>
+                        <div class="collage-item">
+                            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80" alt="Sunglasses" loading="eager">
+                            <span class="collage-label">Sunglasses</span>
+                        </div>
+                        <div class="collage-item">
+                            <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400&q=80" alt="Caps" loading="eager">
+                            <span class="collage-label">Caps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BRAND MARQUEE ========== -->
+    <section class="brand-marquee-section">
+        <div class="brand-marquee-wrapper">
+            <div class="brand-marquee">
+                <div class="brand-item"><span class="brand-logo-icon">◆</span> ZARA</div>
+                <div class="brand-item"><span class="brand-logo-icon">■</span> H&M</div>
+                <div class="brand-item"><span class="brand-logo-icon">✓</span> NIKE</div>
+                <div class="brand-item"><span class="brand-logo-icon">★</span> LEVI'S</div>
+                <div class="brand-item"><span class="brand-logo-icon">◉</span> PUMA</div>
+                <div class="brand-item"><span class="brand-logo-icon">●</span> ADIDAS</div>
+                <div class="brand-item"><span class="brand-logo-icon">▲</span> UNIQLO</div>
+                <div class="brand-item"><span class="brand-logo-icon">⧫</span> CALVIN KLEIN</div>
+                <div class="brand-item"><span class="brand-logo-icon">◆</span> ZARA</div>
+                <div class="brand-item"><span class="brand-logo-icon">■</span> H&M</div>
+                <div class="brand-item"><span class="brand-logo-icon">✓</span> NIKE</div>
+                <div class="brand-item"><span class="brand-logo-icon">★</span> LEVI'S</div>
+                <div class="brand-item"><span class="brand-logo-icon">◉</span> PUMA</div>
+                <div class="brand-item"><span class="brand-logo-icon">●</span> ADIDAS</div>
+                <div class="brand-item"><span class="brand-logo-icon">▲</span> UNIQLO</div>
+                <div class="brand-item"><span class="brand-logo-icon">⧫</span> CALVIN KLEIN</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 1. FEATURED CATEGORIES ========== -->
+    <section class="section-padding" style="background: var(--bg-secondary);" id="categories">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">✨ Categories</span>
+                <h2 class="section-title">Shop By Category</h2>
+                <p class="section-subtitle">Explore curated collections across fashion & lifestyle</p>
+            </div>
+            <div class="category-grid reveal">
+                <a href="products.html?category=Footwear" class="category-grid-card wide">
+                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80" alt="Footwear">
+                    <div class="category-grid-overlay">
+                        <div class="cat-icon">👟</div>
+                        <h3>Footwear</h3>
+                        <p class="cat-tagline">Every Step Matters</p>
+                        <span class="cat-link">Shop Now <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="products.html?category=Clothing" class="category-grid-card">
+                    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&q=80" alt="Clothing">
+                    <div class="category-grid-overlay">
+                        <div class="cat-icon">👔</div>
+                        <h3>Clothing</h3>
+                        <p class="cat-tagline">Dress Your Best</p>
+                        <span class="cat-link">Shop Now <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="products.html?category=Accessories" class="category-grid-card">
+                    <img src="https://images.unsplash.com/photo-1611923134239-b9be5816e23c?w=400&q=80" alt="Accessories">
+                    <div class="category-grid-overlay">
+                        <div class="cat-icon">⌚</div>
+                        <h3>Accessories</h3>
+                        <p class="cat-tagline">Complete Your Look</p>
+                        <span class="cat-link">Shop Now <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="products.html?category=Bags" class="category-grid-card">
+                    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80" alt="Bags">
+                    <div class="category-grid-overlay">
+                        <div class="cat-icon">👜</div>
+                        <h3>Bags</h3>
+                        <p class="cat-tagline">Carry With Style</p>
+                        <span class="cat-link">Shop Now <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="products.html?category=Activewear" class="category-grid-card wide">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80" alt="Activewear">
+                    <div class="category-grid-overlay">
+                        <div class="cat-icon">🏃</div>
+                        <h3>Activewear</h3>
+                        <p class="cat-tagline">Move Without Limits</p>
+                        <span class="cat-link">Shop Now <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 2. TRENDING PRODUCTS ========== -->
+    <section class="section-padding" id="trending">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">🔥 Trending</span>
+                <h2 class="section-title">Trending Right Now</h2>
+                <p class="section-subtitle">What everyone's buying this week</p>
+            </div>
+            <div class="product-scroll-row" id="trendingProducts">
+                <!-- Loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 3. NEW ARRIVALS ========== -->
+    <section class="section-padding" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">✨ New</span>
+                <h2 class="section-title">New Arrivals</h2>
+                <p class="section-subtitle">Fresh drops — just added to the collection</p>
+            </div>
+            <div class="row g-4" id="newArrivals">
+                <!-- Loaded by JS -->
+            </div>
+            <div class="text-center mt-5 reveal">
+                <a href="products.html" class="btn-primary-custom">View All Products <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 4. BEST SELLERS ========== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">⭐ Best Sellers</span>
+                <h2 class="section-title">Customer Favorites</h2>
+                <p class="section-subtitle">Most loved products from our community</p>
+            </div>
+            <div class="product-scroll-row" id="bestSellers">
+                <!-- Loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 5. LIMITED TIME SALE ========== -->
+    <section class="section-padding" style="background: var(--bg-secondary);" id="sale-section">
+        <div class="container">
+            <div class="sale-banner reveal">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; color: var(--accent-rose); font-weight:700; position:relative; z-index:1;">🔥 Flash Sale</span>
+                        <h2>Up to 25% Off</h2>
+                        <p>Limited time offers on premium fashion. Don't miss out!</p>
+                        <a href="products.html" class="btn-primary-custom" style="position:relative;z-index:1;">
+                            <i class="bi bi-bag-check"></i> Shop Sale
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="sale-timer">
+                            <div class="time-block"><span class="number" id="saleDays">02</span><span class="unit">Days</span></div>
+                            <div class="time-block"><span class="number" id="saleHours">14</span><span class="unit">Hours</span></div>
+                            <div class="time-block"><span class="number" id="saleMins">38</span><span class="unit">Mins</span></div>
+                            <div class="time-block"><span class="number" id="saleSecs">45</span><span class="unit">Secs</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4" id="saleProducts">
+                <!-- Loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 6. FEATURED BRANDS ========== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">💎 Brands</span>
+                <h2 class="section-title">Featured Brands</h2>
+                <p class="section-subtitle">Shop from the world's most loved fashion brands</p>
+            </div>
+            <div class="brand-logo-grid reveal">
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">NIKE</div><div class="brand-logo-sub">Since 1964</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">ADIDAS</div><div class="brand-logo-sub">Since 1949</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">LEVI'S</div><div class="brand-logo-sub">Since 1853</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">PUMA</div><div class="brand-logo-sub">Since 1948</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">ZARA</div><div class="brand-logo-sub">Since 1975</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">H&M</div><div class="brand-logo-sub">Since 1947</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">TOMMY</div><div class="brand-logo-sub">Since 1985</div></a>
+                <a href="products.html" class="brand-logo-card"><div class="brand-logo-text">CK</div><div class="brand-logo-sub">Since 1968</div></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 7. CUSTOMER REVIEWS ========== -->
+    <section class="section-padding" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">💬 Testimonials</span>
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Real reviews from real customers who trust TrendSole</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 reveal">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Got a leather jacket and sneakers — both 100% authentic. The packaging was premium too. TrendSole is now my go-to fashion store."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">R</div>
+                            <div class="testimonial-info">
+                                <div class="author-name">Rahul Sharma</div>
+                                <div class="author-title">Verified Buyer • Delhi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 reveal" style="transition-delay: 0.1s;">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Fast delivery, great prices, and the website experience is so smooth. Ordered a dress and accessories — everything arrived in 2 days!"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: var(--gradient-accent);">P</div>
+                            <div class="testimonial-info">
+                                <div class="author-name">Priya Patel</div>
+                                <div class="author-title">Verified Buyer • Mumbai</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 reveal" style="transition-delay: 0.2s;">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Best fashion marketplace in India. From activewear to formal — everything is authentic, fairly priced, and the return policy is solid."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: var(--gradient-gold);">A</div>
+                            <div class="testimonial-info">
+                                <div class="author-name">Arjun Mehta</div>
+                                <div class="author-title">Verified Buyer • Bangalore</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 8. NEWSLETTER ========== -->
+    <section class="section-padding newsletter-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 reveal">
+                    <div class="newsletter-card">
+                        <span class="section-tag" style="position:relative; z-index:1;">📬 Newsletter</span>
+                        <h2 class="section-title" style="position:relative; z-index:1;">Stay In The Loop</h2>
+                        <p class="section-subtitle mx-auto mb-4" style="position:relative; z-index:1;">Get notified about new drops, exclusive offers, and insider fashion news</p>
+                        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                            <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+                            <button type="submit" class="btn-primary-custom">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 9. FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="footer-brand">⚡ TRENDSOLE</div>
+                    <p class="footer-desc">Your one-stop destination for premium fashion. We bring you the latest trends in footwear, clothing, accessories & more from top brands worldwide.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h6>Shop</h6>
+                    <a href="products.html" class="footer-link">All Products</a>
+                    <a href="products.html?category=Footwear" class="footer-link">Footwear</a>
+                    <a href="products.html?category=Clothing" class="footer-link">Clothing</a>
+                    <a href="products.html?category=Accessories" class="footer-link">Accessories</a>
+                    <a href="products.html?category=Bags" class="footer-link">Bags</a>
+                    <a href="products.html?category=Activewear" class="footer-link">Activewear</a>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h6>Help</h6>
+                    <a href="#" class="footer-link">Contact Us</a>
+                    <a href="#" class="footer-link">FAQs</a>
+                    <a href="#" class="footer-link">Shipping Info</a>
+                    <a href="#" class="footer-link">Returns</a>
+                    <a href="#" class="footer-link">Size Guide</a>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Contact</h6>
+                    <a href="mailto:support@trendsole.com" class="footer-link"><i class="bi bi-envelope me-2"></i>support@trendsole.com</a>
+                    <a href="tel:+919876543210" class="footer-link"><i class="bi bi-telephone me-2"></i>+91 98765 43210</a>
+                    <a href="#" class="footer-link"><i class="bi bi-geo-alt me-2"></i>New Delhi, India</a>
+                    <div class="footer-payment">
+                        <span class="payment-badge">VISA</span>
+                        <span class="payment-badge">MASTERCARD</span>
+                        <span class="payment-badge">UPI</span>
+                        <span class="payment-badge">COD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 TrendSole. All rights reserved.</p>
+                <p>Made with ❤️ for Fashion Lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toast"></div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/product-meta.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllSections();
+            updateCartCount();
+            startSaleTimer();
+        });
+
+        // Load all product sections from a single API call
+        function loadAllSections() {
+            fetch(API_BASE + '/products')
+                .then(r => r.json())
+                .then(products => {
+                    if (products.length === 0) {
+                        document.getElementById('trendingProducts').innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><h4>No Products Yet</h4><p>Open browser console and paste the contents of js/seed-data.js to add products.</p></div>';
+                        return;
+                    }
+                    // Trending: first 8 products
+                    renderScrollRow('trendingProducts', products.slice(0, 8));
+                    // New Arrivals: last 6 products (newest added)
+                    renderGrid('newArrivals', products.slice(-6).reverse());
+                    // Best Sellers: products 8-16
+                    renderScrollRow('bestSellers', products.slice(8, 16));
+                    // Sale: 4 random products with discounts
+                    renderGrid('saleProducts', products.filter((_, i) => i % 5 === 1).slice(0, 4));
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    document.getElementById('trendingProducts').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><h4>Server Offline</h4><p>Start the backend on port 8080.</p></div>';
+                });
+        }
+
+        // Render horizontal scroll row
+        function renderScrollRow(containerId, products) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+            var html = '';
+            products.forEach(function(p, i) { html += createCard(p, i); });
+            container.innerHTML = html;
+        }
+
+        // Render grid of product cards
+        function renderGrid(containerId, products) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+            var html = '';
+            products.forEach(function(p, i) {
+                html += '<div class="col-lg-4 col-md-6 reveal" style="transition-delay:' + (i * 0.05) + 's;">' + createCardInner(p) + '</div>';
+            });
+            container.innerHTML = html;
+            // Re-observe reveals
+            container.querySelectorAll('.reveal').forEach(el => {
+                new IntersectionObserver((entries, obs) => {
+                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+                }, { threshold: 0.1 }).observe(el);
+            });
+        }
+
+        // Card for scroll row (no col wrapper)
+        function createCard(product, index) {
+            return '<div class="product-card">' + createCardContent(product) + '</div>';
+        }
+
+        // Card inner for grid (no product-card wrapper)
+        function createCardInner(product) {
+            return '<div class="product-card">' + createCardContent(product) + '</div>';
+        }
+
+        // Shared card content
+        function createCardContent(product) {
+            var brand = ProductMeta.extractBrand(product.name);
+            var discount = ProductMeta.getDiscount(product.category, product.id);
+            var rating = ProductMeta.getRating(product.id);
+            var originalPrice = ProductMeta.getOriginalPrice(product.price, discount);
+            var isWishlisted = Wishlist.has(product.id);
+
+            var stockClass = 'in-stock', stockText = 'In Stock';
+            if (product.stock <= 0) { stockClass = 'out-of-stock'; stockText = 'Out of Stock'; }
+            else if (product.stock <= 10) { stockClass = 'low-stock'; stockText = 'Only ' + product.stock + ' left'; }
+
+            return `
+                <div class="card-img-wrapper">
+                    <img src="${product.imageUrl || 'https://via.placeholder.com/400x300'}" alt="${product.name}" loading="lazy">
+                    <span class="brand-tag">${brand}</span>
+                    <span class="category-badge">${product.category}</span>
+                    ${discount > 0 ? '<span class="discount-badge">-' + discount + '%</span>' : ''}
+                    <button class="wishlist-btn ${isWishlisted ? 'active' : ''}" data-product-id="${product.id}" onclick="toggleWishlist(${product.id}, event)">
+                        <i class="bi bi-heart${isWishlisted ? '-fill' : ''}"></i>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="product-name">${product.name}</h5>
+                    <div class="rating-stars">${ProductMeta.renderStars(rating)}</div>
+                    <div class="price-row">
+                        <span class="product-price">₹${product.price.toLocaleString('en-IN')}</span>
+                        ${originalPrice ? '<span class="original-price">₹' + originalPrice.toLocaleString('en-IN') + '</span>' : ''}
+                        <span class="stock-info ${stockClass}">${stockText}</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart(${product.id})" ${product.stock <= 0 ? 'disabled' : ''}>
+                        <i class="bi bi-bag-plus me-1"></i> ${product.stock <= 0 ? 'Out of Stock' : 'Add to Cart'}
+                    </button>
+                </div>`;
+        }
+
+        function addToCart(productId) {
+            fetch(API_BASE + '/cart/add?productId=' + productId + '&quantity=1', { method: 'POST' })
+                .then(r => r.json())
+                .then(() => { showToast('✅ Added to cart!'); updateCartCount(); })
+                .catch(() => showToast('❌ Failed to add to cart.'));
+        }
+
+        function updateCartCount() {
+            fetch(API_BASE + '/cart')
+                .then(r => r.json())
+                .then(items => {
+                    var total = 0;
+                    items.forEach(item => total += item.quantity);
+                    document.getElementById('cartCount').textContent = total;
+                })
+                .catch(() => { document.getElementById('cartCount').textContent = '0'; });
+        }
+
+        function openWishlistView() { window.location.href = 'products.html?view=wishlist'; }
+
+        function showToast(msg) {
+            var t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // Sale countdown timer
+        function startSaleTimer() {
+            var end = new Date();
+            end.setDate(end.getDate() + 2);
+            end.setHours(23, 59, 59);
+            function tick() {
+                var now = new Date();
+                var diff = end - now;
+                if (diff <= 0) return;
+                var d = Math.floor(diff / 86400000);
+                var h = Math.floor((diff % 86400000) / 3600000);
+                var m = Math.floor((diff % 3600000) / 60000);
+                var s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('saleDays').textContent = String(d).padStart(2, '0');
+                document.getElementById('saleHours').textContent = String(h).padStart(2, '0');
+                document.getElementById('saleMins').textContent = String(m).padStart(2, '0');
+                document.getElementById('saleSecs').textContent = String(s).padStart(2, '0');
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+    </script>
+</body>
+</html>

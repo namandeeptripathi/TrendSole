@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — TrendSole</title>
+    <meta name="description" content="Your order has been placed successfully at TrendSole.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">⚡ TRENDSOLE</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=Footwear"><i class="bi bi-shoe"></i> Footwear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Clothing"><i class="bi bi-person-badge"></i> Clothing</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Accessories"><i class="bi bi-watch"></i> Accessories</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Bags"><i class="bi bi-bag"></i> Bags</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Activewear"><i class="bi bi-lightning"></i> Activewear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?view=wishlist"><i class="bi bi-heart"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-bag"></i> <span class="cart-badge" id="cartCount">0</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== THANK YOU SECTION ========== -->
+    <section class="thankyou-section" style="margin-top: 76px;">
+        <div class="container">
+            <div class="thankyou-card mx-auto">
+
+                <!-- Success Icon -->
+                <div class="thankyou-icon">✅</div>
+
+                <h2 style="font-family:'Outfit',sans-serif; font-weight:800; margin-bottom:10px; position:relative; z-index:1;">Order Confirmed!</h2>
+                <p style="color: var(--text-secondary); margin-bottom:30px; position:relative; z-index:1;">Thank you for shopping with TrendSole. Your order has been placed successfully.</p>
+
+                <!-- Order Details -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding:22px; margin-bottom:28px; text-align:left; position:relative; z-index:1;">
+                    <div class="d-flex justify-content-between mb-3" style="padding-bottom:12px; border-bottom: 1px solid var(--glass-border);">
+                        <span style="color: var(--text-muted); font-size:0.88rem;">Order ID</span>
+                        <span style="font-family:'Outfit',sans-serif; font-weight:700;" id="orderId">#----</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3" style="padding-bottom:12px; border-bottom: 1px solid var(--glass-border);">
+                        <span style="color: var(--text-muted); font-size:0.88rem;">Customer</span>
+                        <span style="font-weight:600;" id="orderName">---</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3" style="padding-bottom:12px; border-bottom: 1px solid var(--glass-border);">
+                        <span style="color: var(--text-muted); font-size:0.88rem;">Email</span>
+                        <span style="font-weight:600;" id="orderEmail">---</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3" style="padding-bottom:12px; border-bottom: 1px solid var(--glass-border);">
+                        <span style="color: var(--text-muted); font-size:0.88rem;">Total Amount</span>
+                        <span style="font-family:'Outfit',sans-serif; font-weight:800; color: var(--accent-emerald);" id="orderTotal">₹0</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span style="color: var(--text-muted); font-size:0.88rem;">Payment</span>
+                        <span style="font-weight:600;" id="orderPayment">COD</span>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-muted); font-size:0.82rem; margin-bottom:28px; position:relative; z-index:1;">
+                    📧 A confirmation email will be sent to your registered email address.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 justify-content-center flex-wrap" style="position:relative; z-index:1;">
+                    <a href="products.html" class="btn-primary-custom">
+                        <i class="bi bi-bag"></i> Continue Shopping
+                    </a>
+                    <a href="index.html" class="btn-secondary-custom">
+                        <i class="bi bi-house-door"></i> Go Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border:none; margin:0; padding:0;">
+                <p>© 2026 TrendSole. All rights reserved.</p>
+                <p>Made with ❤️ for Fashion Lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Shared Utilities -->
+    <script src="js/app.js"></script>
+
+    <script>
+        /*
+         * Thank You Page Script
+         *
+         * This reads order details from localStorage (saved during checkout)
+         * and displays them on this page.
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Read order details from localStorage
+            const orderId = localStorage.getItem('orderId');
+            const orderName = localStorage.getItem('orderName');
+            const orderEmail = localStorage.getItem('orderEmail');
+            const orderTotal = localStorage.getItem('orderTotal');
+            const orderPayment = localStorage.getItem('orderPayment');
+
+            // Display order details (if available)
+            if (orderId) {
+                document.getElementById('orderId').textContent = '#' + orderId;
+            }
+            if (orderName) {
+                document.getElementById('orderName').textContent = orderName;
+            }
+            if (orderEmail) {
+                document.getElementById('orderEmail').textContent = orderEmail;
+            }
+            if (orderTotal) {
+                document.getElementById('orderTotal').textContent = '₹' + parseFloat(orderTotal).toLocaleString('en-IN');
+            }
+            if (orderPayment) {
+                const paymentLabels = {
+                    'cod': 'Cash on Delivery',
+                    'upi': 'UPI Payment',
+                    'card': 'Credit/Debit Card'
+                };
+                document.getElementById('orderPayment').textContent = paymentLabels[orderPayment] || orderPayment;
+            }
+
+            // Clear localStorage after displaying
+            localStorage.removeItem('orderId');
+            localStorage.removeItem('orderName');
+            localStorage.removeItem('orderEmail');
+            localStorage.removeItem('orderTotal');
+            localStorage.removeItem('orderPayment');
+
+            // Update cart count (should be 0 after order)
+            updateCartCount();
+        });
+
+        // Update cart badge count
+        function updateCartCount() {
+            fetch('http://localhost:8080/api/cart')
+                .then(response => response.json())
+                .then(cartItems => {
+                    let total = 0;
+                    cartItems.forEach(item => total += item.quantity);
+                    document.getElementById('cartCount').textContent = total;
+                })
+                .catch(() => {
+                    document.getElementById('cartCount').textContent = '0';
+                });
+        }
+    </script>
+</body>
+</html>
