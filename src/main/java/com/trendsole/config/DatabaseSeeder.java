@@ -2,6 +2,7 @@ package com.trendsole.config;
 
 import com.trendsole.model.Product;
 import com.trendsole.repository.ProductRepository;
+import com.trendsole.repository.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,15 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
     @Override
     public void run(String... args) throws Exception {
-        if (productRepository.count() == 0) {
+        if (productRepository.count() != 72) {
+            System.out.println("🌱 Database count is " + productRepository.count() + " (not 72). Resetting and re-seeding...");
+            cartItemRepository.deleteAll();
+            productRepository.deleteAll();
             Product[] products = new Product[] {
                 // Category: Footwear (Set A - 12 items)
                 new Product(null, "Nike Air Max 90 Premium", "Classic Nike sneakers with Air cushioning for all-day comfort.", 12999.00, "Footwear", "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", 25),
