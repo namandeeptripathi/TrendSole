@@ -35,7 +35,6 @@ let isWishlistView = false;
 document.addEventListener('DOMContentLoaded', function () {
     loadProducts();    // Load all products from the API
     updateCartCount(); // Update cart badge in navbar
-    checkUrlParams();  // Check if category or wishlist view was passed in URL
 });
 
 // ==========================================
@@ -49,10 +48,12 @@ function loadProducts() {
         .then(function (products) {
             allProducts = products; // Save products for later filtering
 
-            // Check if we should show wishlist view
+            // Check URL parameters (view or category)
             var urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('view') === 'wishlist') {
                 showWishlistView();
+            } else if (urlParams.get('category')) {
+                checkUrlParams(); // Click the category button if passed in URL
             } else {
                 displayProducts(products); // Show products on the page
             }
