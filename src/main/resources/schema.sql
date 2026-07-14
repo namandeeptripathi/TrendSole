@@ -62,6 +62,27 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- ================================================
+-- Table 5: addresses
+-- Stores user delivery addresses
+-- ================================================
+CREATE TABLE IF NOT EXISTS addresses (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(25) NOT NULL,
+    address_line1 VARCHAR(255) NOT NULL,
+    address_line2 VARCHAR(255),
+    landmark VARCHAR(255),
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(100) NOT NULL,
+    pincode VARCHAR(20) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    address_type VARCHAR(20) NOT NULL DEFAULT 'HOME',
+    is_default BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ================================================
 -- Insert some sample products (for testing)
 -- ================================================
 INSERT INTO products (name, description, price, category, image_url, stock) VALUES

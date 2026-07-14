@@ -39,6 +39,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     /**
+     * Find a user by email, ignoring case differences.
+     */
+    Optional<User> findByEmailIgnoreCase(String email);
+
+    /**
      * Custom query method: Check if a user with this email already exists.
      * existsByEmail("naman@example.com") → SELECT COUNT(*) > 0 FROM users WHERE email = ?
      *

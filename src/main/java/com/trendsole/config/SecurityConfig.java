@@ -113,8 +113,9 @@ public class SecurityConfig {
                 // 2. Authentication endpoints — always public (login, logout, session check)
                 .requestMatchers("/api/auth/**").permitAll()
 
-                // 3. Authenticated profile endpoints
+                // 3. Authenticated profile and address endpoints
                 .requestMatchers("/api/users/profile", "/api/users/change-password").authenticated()
+                .requestMatchers("/api/addresses", "/api/addresses/**").authenticated()
 
                 // 4. User administration endpoints — require authentication
                 .requestMatchers("/api/users", "/api/users/**").authenticated()
