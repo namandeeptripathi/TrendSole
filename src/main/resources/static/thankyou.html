@@ -50,6 +50,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" href="orders.html"><i class="bi bi-box-seam me-2"></i>My Orders</a></li>
                             <li><a class="dropdown-item" href="addresses.html"><i class="bi bi-geo-alt me-2"></i>My Addresses</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" onclick="handleLogout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
@@ -103,7 +104,10 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex gap-3 justify-content-center flex-wrap" style="position:relative; z-index:1;">
-                    <a href="products.html" class="btn-primary-custom">
+                    <a href="orders.html" class="btn-primary-custom">
+                        <i class="bi bi-box-seam"></i> View My Orders
+                    </a>
+                    <a href="products.html" class="btn-secondary-custom">
                         <i class="bi bi-bag"></i> Continue Shopping
                     </a>
                     <a href="index.html" class="btn-secondary-custom">
@@ -140,14 +144,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Read order details from localStorage
             const orderId = localStorage.getItem('orderId');
+            const orderNumber = localStorage.getItem('orderNumber');
             const orderName = localStorage.getItem('orderName');
             const orderEmail = localStorage.getItem('orderEmail');
             const orderTotal = localStorage.getItem('orderTotal');
             const orderPayment = localStorage.getItem('orderPayment');
 
             // Display order details (if available)
-            if (orderId) {
-                document.getElementById('orderId').textContent = '#' + orderId;
+            if (orderNumber || orderId) {
+                document.getElementById('orderId').textContent = '#' + (orderNumber || orderId);
             }
             if (orderName) {
                 document.getElementById('orderName').textContent = orderName;
@@ -169,6 +174,7 @@
 
             // Clear localStorage after displaying
             localStorage.removeItem('orderId');
+            localStorage.removeItem('orderNumber');
             localStorage.removeItem('orderName');
             localStorage.removeItem('orderEmail');
             localStorage.removeItem('orderTotal');
@@ -177,6 +183,7 @@
             // Update cart count (should be 0 after order)
             updateCartCount();
         });
+
 
         // Update cart badge count
         function updateCartCount() {

@@ -1,28 +1,20 @@
 package com.trendsole.controller;
 
+import com.trendsole.dto.OrderRequest;
 import com.trendsole.model.Order;
 import com.trendsole.service.OrderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-/**
- * OrderController - REST API Controller for Orders
- *
- * What it does:
- * - Handles all order-related HTTP requests from the frontend.
- * - URLs start with: http://localhost:8080/api/orders
- *
- * API Endpoints:
- * - GET    /api/orders               → Get all orders
- * - GET    /api/orders/{id}          → Get order by ID
- * - GET    /api/orders/email/{email} → Get orders by customer email
- * - POST   /api/orders               → Place a new order
- * - DELETE /api/orders/{id}          → Delete an order
- */
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -31,8 +23,7 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * GET /api/orders → Get all orders.
-     * Returns: List of all orders in JSON format.
+     * GET /api/orders → Get all orders (for Admin / general retrieval).
      */
     @GetMapping
     public List<Order> getAllOrders() {
@@ -40,19 +31,41 @@ public class OrderController {
     }
 
     /**
-     * GET /api/orders/{id} → Get a single order by ID.
-     * Example: http://localhost:8080/api/orders/1
+     * GET /api/orders/my-orders → Get order history for the currently logged in user.
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-        Order order = orderService.getOrderById(id);
-        return ResponseEntity.ok(order);
+    @GetMapping("/my-orders")
+    public ResponseEntity<?> getMyOrders() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "User not logged in"));
+        }
+
+        String email = auth.getName();
+        List<Order> orders = orderService.getOrdersByEmail(email);
+        return ResponseEntity.ok(orders);
     }
 
     /**
-     * GET /api/orders/email/{email} → Get all orders by a customer's email.
-     * Example: http://localhost:8080/api/orders/email/john@gmail.com
-     * This is used to show a customer their order history.
+     * GET /api/orders/{id} → Get order details by ID (Security checked: user can only view their own order).
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "User not logged in"));
+        }
+
+        try {
+            String email = auth.getName();
+            Order order = orderService.getOrderByIdForUser(id, email);
+            return ResponseEntity.ok(order);
+        } catch (SecurityException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Collections.singletonMap("message", e.getMessage()));
+        }
+    }
+
+    /**
+     * GET /api/orders/email/{email} → Get orders by customer email.
      */
     @GetMapping("/email/{email}")
     public List<Order> getOrdersByEmail(@PathVariable String email) {
@@ -60,29 +73,32 @@ public class OrderController {
     }
 
     /**
-     * POST /api/orders → Place a new order.
-     *
-     * @RequestBody → The order data (customerName, email, address, totalAmount)
-     *                 is sent as JSON in the request body.
-     *
-     * Example JSON body:
-     * {
-     *   "customerName": "Namandeep",
-     *   "email": "naman@gmail.com",
-     *   "address": "123 Main Street, Delhi",
-     *   "totalAmount": 25998.00
-     * }
-     *
-     * Note: orderDate is set automatically by the service layer.
+     * POST /api/orders → Create/Place a new order.
      */
     @PostMapping
-    public Order placeOrder(@RequestBody Order order) {
-        return orderService.placeOrder(order);
+    public ResponseEntity<Order> placeOrder(@RequestBody OrderRequest orderRequest) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String authenticatedEmail = (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) ? auth.getName() : null;
+
+        Order createdOrder = orderService.placeOrder(orderRequest, authenticatedEmail);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
     }
 
     /**
-     * DELETE /api/orders/{id} → Delete an order by ID.
-     * Example: DELETE http://localhost:8080/api/orders/1
+     * PUT /api/orders/{id}/status → Update order status (Admin function).
+     */
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody Map<String, String> payload) {
+        String newStatus = payload.get("status");
+        if (newStatus == null || newStatus.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        Order updatedOrder = orderService.updateOrderStatus(id, newStatus);
+        return ResponseEntity.ok(updatedOrder);
+    }
+
+    /**
+     * DELETE /api/orders/{id} → Delete an order.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
@@ -90,3 +106,4 @@ public class OrderController {
         return ResponseEntity.ok("Order deleted successfully!");
     }
 }
+

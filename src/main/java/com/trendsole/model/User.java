@@ -107,4 +107,9 @@ public class User {
      */
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    @jakarta.persistence.OneToMany(mappedBy = "user", cascade = jakarta.persistence.CascadeType.ALL)
+    private java.util.List<Order> orders = new java.util.ArrayList<>();
 }
+

@@ -40,12 +40,32 @@ CREATE TABLE IF NOT EXISTS cart (
 -- ================================================
 CREATE TABLE IF NOT EXISTS orders (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- Unique ID for each order
+    order_number VARCHAR(100) NOT NULL UNIQUE, -- Auto-generated unique order number
+    user_id BIGINT,                          -- User ID if ordered by a registered account
     customer_name VARCHAR(255) NOT NULL,     -- Name of the customer
     email VARCHAR(255) NOT NULL,             -- Customer's email address
     address TEXT NOT NULL,                    -- Delivery address
+    payment_method VARCHAR(100),              -- Payment method used
+    status VARCHAR(50) NOT NULL DEFAULT 'Pending', -- Order status (Pending, Processing, etc.)
     total_amount DOUBLE NOT NULL,             -- Total price of the order
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP  -- When the order was placed
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP, -- When the order was placed
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
+
+-- ================================================
+-- Table 3b: order_items
+-- Stores line items for each order
+-- ================================================
+CREATE TABLE IF NOT EXISTS order_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    price DOUBLE NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
 
 -- ================================================
 -- Table 4: users

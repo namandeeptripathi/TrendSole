@@ -145,21 +145,22 @@ function placeOrder(event) {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Placing Order...';
 
-    // Create order object (matches the Order entity in backend)
+    // Create order request object
     var orderData = {
         customerName: customerName,
         email: email,
         address: fullAddress,
-        totalAmount: totalAmount
+        paymentMethod: paymentMethod
     };
 
     // Send POST request to create the order
     fetch(API_BASE + '/orders', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'  // Tell backend we're sending JSON
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(orderData)  // Convert JS object to JSON string
+        credentials: 'include',
+        body: JSON.stringify(orderData)
     })
         .then(function (response) {
             if (!response.ok) {
@@ -172,10 +173,12 @@ function placeOrder(event) {
 
             // Save order details to localStorage (for thankyou.html page)
             localStorage.setItem('orderId', order.id);
+            localStorage.setItem('orderNumber', order.orderNumber || order.id);
             localStorage.setItem('orderName', customerName);
             localStorage.setItem('orderEmail', email);
-            localStorage.setItem('orderTotal', totalAmount);
+            localStorage.setItem('orderTotal', order.totalAmount || totalAmount);
             localStorage.setItem('orderPayment', paymentMethod);
+
 
             // Clean up checkout data
             localStorage.removeItem('checkoutTotal');
