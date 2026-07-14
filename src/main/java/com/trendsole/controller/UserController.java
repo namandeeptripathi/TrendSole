@@ -1,0 +1,114 @@
+package com.trendsole.controller;
+
+import com.trendsole.model.User;
+import com.trendsole.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * UserController - REST API Controller for Users
+ *
+ * What is this?
+ * - This Controller handles all HTTP requests related to users.
+ * - It receives requests from the frontend (browser/JavaScript).
+ * - It calls the UserService to process the request.
+ * - It sends back a response (usually JSON data).
+ *
+ * @RestController → Tells Spring this class handles REST API requests and returns JSON.
+ * @RequestMapping("/api/users") → Base URL: http://localhost:8080/api/users
+ * @CrossOrigin → Allows requests from the frontend (different port/origin).
+ *
+ * Note: Login/authentication is NOT implemented yet.
+ * This controller only handles basic user registration and retrieval.
+ */
+@RestController
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    /**
+     * POST /api/users/register → Register a new user.
+     * HTTP Method: POST
+     * Example: http://localhost:8080/api/users/register
+     *
+     * Request Body (JSON):
+     * {
+     *   "fullName": "Naman Tripathi",
+     *   "email": "naman@example.com",
+     *   "password": "myPassword123",
+     *   "phoneNumber": "+91 98765 43210"
+     * }
+     *
+     * Note: role and createdAt are set automatically by the service layer.
+     *
+     * Returns: The created user with HTTP 201 (Created) status.
+     */
+    @PostMapping("/register")
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        User registeredUser = userService.registerUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+    }
+
+    /**
+     * GET /api/users → Get all users.
+     * HTTP Method: GET
+     * Example: http://localhost:8080/api/users
+     * Returns: List of all users in JSON format.
+     */
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    /**
+     * GET /api/users/{id} → Get a single user by ID.
+     * HTTP Method: GET
+     * Example: http://localhost:8080/api/users/1
+     * @PathVariable → Extracts the {id} from the URL.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);  // Returns 200 OK with user data
+    }
+
+    /**
+     * GET /api/users/email/{email} → Get a user by email.
+     * HTTP Method: GET
+     * Example: http://localhost:8080/api/users/email/naman@example.com
+     */
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
+
+    /**
+     * DELETE /api/users/{id} → Delete a user.
+     * HTTP Method: DELETE
+     * Example: http://localhost:8080/api/users/1
+     * Returns: A success message.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully!");
+    }
+
+    /**
+     * Exception handler for IllegalArgumentException.
+     * Returns a 400 Bad Request status with the exception message as the body.
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+}

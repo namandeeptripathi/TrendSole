@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account — TrendSole</title>
+    <meta name="description" content="Register an account with TrendSole to start shopping premium luxury footwear, clothing, and accessories.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        /* Extra styles specifically for the Register page to make it stand out */
+        .register-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .register-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .register-card * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .register-card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .register-card .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border: 1px solid var(--glass-border) !important;
+            color: var(--text-primary) !important;
+            border-radius: var(--radius-md) !important;
+            padding: 13px 18px !important;
+            font-size: 0.9rem;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .form-control:focus {
+            border-color: rgba(99, 102, 241, 0.4) !important;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15) !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted) !important;
+        }
+
+        .invalid-feedback {
+            color: var(--accent-rose) !important;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .alert-error {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: #ff8a9e;
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #a7f3d0;
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">⚡ TRENDSOLE</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=Footwear"><i class="bi bi-shoe-prints"></i> Footwear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Clothing"><i class="bi bi-tag"></i> Clothing</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Accessories"><i class="bi bi-watch"></i> Accessories</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Bags"><i class="bi bi-bag"></i> Bags</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Activewear"><i class="bi bi-lightning-charge"></i> Activewear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?sort=new">New Arrivals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#sale-section" style="color: var(--accent-rose);">Sale</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="register.html">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?view=wishlist"><i class="bi bi-heart"></i> <span class="wishlist-badge" id="wishlistCount" style="display:none;">0</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-bag"></i> <span class="cart-badge" id="cartCount">0</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container text-center">
+            <h1><i class="bi bi-person-plus me-2"></i>Join TrendSole</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 mt-2 justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Register</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="section-padding">
+        <div class="container">
+            <div class="register-container">
+                <div class="register-card reveal">
+                    <h2>Create Account</h2>
+                    <p class="subtitle">Join our community for a premium shopping experience</p>
+                    
+                    <!-- Alert Messages -->
+                    <div class="alert-error" id="formError">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <span id="errorMessage">Please check your inputs and try again.</span>
+                    </div>
+                    
+                    <div class="alert-success" id="formSuccess">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Registration successful! Redirecting you...</span>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form id="registerForm" novalidate onsubmit="handleRegistration(event)">
+                        <!-- Full Name -->
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                            <div class="invalid-feedback" id="nameError">Full name is required.</div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <div class="invalid-feedback" id="emailError">Please enter a valid email address.</div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number (e.g. +91 98765 43210)">
+                            <div class="invalid-feedback" id="phoneError">Please enter a valid phone number.</div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="password" placeholder="Create a strong password" required>
+                            <div class="invalid-feedback" id="passwordError">Password must be at least 6 characters long.</div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-4">
+                            <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                            <div class="invalid-feedback" id="confirmError">Passwords do not match.</div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-primary-custom w-100 justify-content-center" id="submitBtn">
+                            <i class="bi bi-person-check"></i> Register Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom mt-0 pt-0 border-0 text-center">
+                <p>© 2026 TrendSole. All rights reserved.</p>
+                <p>Made with ❤️ for Fashion Lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toast"></div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+
+        // Cart Count initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        function updateCartCount() {
+            fetch(API_BASE + '/cart')
+                .then(r => r.json())
+                .then(items => {
+                    var total = 0;
+                    items.forEach(item => total += item.quantity);
+                    document.getElementById('cartCount').textContent = total;
+                })
+                .catch(() => { document.getElementById('cartCount').textContent = '0'; });
+        }
+
+        function showToast(msg) {
+            var t = document.getElementById('toast');
+            if (t) {
+                t.textContent = msg;
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 3000);
+            }
+        }
+
+        // Handle Registration
+        function handleRegistration(event) {
+            event.preventDefault();
+            
+            // Elements
+            const form = document.getElementById('registerForm');
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phoneNumber');
+            const passwordInput = document.getElementById('password');
+            const confirmInput = document.getElementById('confirmPassword');
+            
+            const formError = document.getElementById('formError');
+            const errorMessage = document.getElementById('errorMessage');
+            const formSuccess = document.getElementById('formSuccess');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Reset validation states
+            let isValid = true;
+            formError.style.display = 'none';
+            formSuccess.style.display = 'none';
+            
+            fullNameInput.classList.remove('is-invalid');
+            emailInput.classList.remove('is-invalid');
+            phoneInput.classList.remove('is-invalid');
+            passwordInput.classList.remove('is-invalid');
+            confirmInput.classList.remove('is-invalid');
+
+            // 1. Validate Full Name
+            const fullName = fullNameInput.value.trim();
+            if (!fullName) {
+                fullNameInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            // 2. Validate Email format
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                emailInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            // 3. Validate Phone Number (Optional, but if filled, should have standard length/digits)
+            const phoneNumber = phoneInput.value.trim();
+            if (phoneNumber) {
+                const phoneRegex = /^[+]?[0-9\s\-()]{7,20}$/;
+                if (!phoneRegex.test(phoneNumber)) {
+                    phoneInput.classList.add('is-invalid');
+                    isValid = false;
+                }
+            }
+
+            // 4. Validate Password length (minimum 6 characters)
+            const password = passwordInput.value;
+            if (!password || password.length < 6) {
+                passwordInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            // 5. Validate Password Confirmation
+            const confirmPassword = confirmInput.value;
+            if (password !== confirmPassword) {
+                confirmInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Lock submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registering...';
+
+            // Construct payload
+            const payload = {
+                fullName: fullName,
+                email: email,
+                password: password,
+                phoneNumber: phoneNumber || null
+            };
+
+            // Call API
+            fetch(API_BASE + '/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                // Handle errors (like 400 Bad Request for duplicate email)
+                return response.text().then(text => {
+                    throw new Error(text || 'Registration failed. Please try again.');
+                });
+            })
+            .then(data => {
+                // Show Success
+                formSuccess.style.display = 'flex';
+                showToast('🎉 Account registered successfully!');
+                
+                // Clear form
+                form.reset();
+                
+                // Redirect to homepage after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            })
+            .catch(error => {
+                // Show Error
+                console.error('Registration Error:', error);
+                
+                let msg = error.message;
+                if (msg.includes('Email is already registered')) {
+                    emailInput.classList.add('is-invalid');
+                    errorMessage.textContent = 'This email is already registered. Please use another one.';
+                } else {
+                    errorMessage.textContent = msg;
+                }
+                
+                formError.style.display = 'flex';
+                showToast('❌ Registration failed');
+            })
+            .finally(() => {
+                // Unlock submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-person-check"></i> Register Account';
+            });
+        }
+    </script>
+</body>
+</html>
