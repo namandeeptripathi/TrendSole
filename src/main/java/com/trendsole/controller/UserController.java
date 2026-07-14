@@ -8,23 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * UserController - REST API Controller for Users
- *
- * What is this?
- * - This Controller handles all HTTP requests related to users.
- * - It receives requests from the frontend (browser/JavaScript).
- * - It calls the UserService to process the request.
- * - It sends back a response (usually JSON data).
- *
- * @RestController → Tells Spring this class handles REST API requests and returns JSON.
- * @RequestMapping("/api/users") → Base URL: http://localhost:8080/api/users
- * @CrossOrigin → Allows requests from the frontend (different port/origin).
- *
- * Note: Login/authentication is NOT implemented yet.
- * This controller only handles basic user registration and retrieval.
  */
 @RestController
 @RequestMapping("/api/users")
@@ -32,6 +23,51 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * GET /api/users/profile → Get profile of currently logged-in user.
+     */
+    @GetMapping("/profile")
+    public ResponseEntity<User> getProfile() {
+        String email = getAuthenticatedUserEmail();
+        User user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
+
+    /**
+     * PUT /api/users/profile → Update fullName and phoneNumber for logged-in user.
+     */
+    @PutMapping("/profile")
+    public ResponseEntity<User> updateProfile(@RequestBody Map<String, String> request) {
+        String email = getAuthenticatedUserEmail();
+        String fullName = request.get("fullName");
+        String phoneNumber = request.get("phoneNumber");
+
+        User updatedUser = userService.updateProfile(email, fullName, phoneNumber);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    /**
+     * PUT /api/users/change-password → Change password for logged-in user.
+     */
+    @PutMapping("/change-password")
+    public ResponseEntity<Map<String, String>> changePassword(@RequestBody Map<String, String> request) {
+        String email = getAuthenticatedUserEmail();
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+        String confirmPassword = request.get("confirmPassword");
+
+        userService.changePassword(email, currentPassword, newPassword, confirmPassword);
+        return ResponseEntity.ok(Map.of("message", "Password changed successfully!"));
+    }
+
+    private String getAuthenticatedUserEmail() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            throw new IllegalArgumentException("User is not authenticated. Please log in.");
+        }
+        return auth.getName();
+    }
 
     /**
      * POST /api/users/register → Register a new user.

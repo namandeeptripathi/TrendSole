@@ -68,12 +68,20 @@
             el.style.display = '';
         });
 
-        // Set the user's name in the navbar
+        // Set the user's name and profile link in the navbar
         var nameElements = document.querySelectorAll('.nav-user-name');
         nameElements.forEach(function (el) {
             // Show first name only for a cleaner navbar
             var firstName = user.fullName ? user.fullName.split(' ')[0] : 'Profile';
             el.textContent = firstName;
+        });
+
+        // Set href on profile dropdown items
+        var profileLinks = document.querySelectorAll('.auth-user .dropdown-item');
+        profileLinks.forEach(function (el) {
+            if (el.textContent.includes('My Profile')) {
+                el.setAttribute('href', 'profile.html');
+            }
         });
     }
 

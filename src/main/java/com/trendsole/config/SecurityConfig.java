@@ -113,10 +113,13 @@ public class SecurityConfig {
                 // 2. Authentication endpoints — always public (login, logout, session check)
                 .requestMatchers("/api/auth/**").permitAll()
 
-                // 3. User administration endpoints — require authentication
+                // 3. Authenticated profile endpoints
+                .requestMatchers("/api/users/profile", "/api/users/change-password").authenticated()
+
+                // 4. User administration endpoints — require authentication
                 .requestMatchers("/api/users", "/api/users/**").authenticated()
 
-                // 4. All other static pages, assets, products, cart, and orders — public
+                // 5. All other static pages, assets, products, cart, and orders — public
                 .anyRequest().permitAll()
             )
 

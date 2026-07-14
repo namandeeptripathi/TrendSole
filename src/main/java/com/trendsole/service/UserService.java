@@ -108,11 +108,61 @@ public class UserService {
 
     /**
      * Get a user by their email address.
-     * Useful for looking up accounts (e.g., during login, which will be implemented later).
+     * Useful for looking up accounts.
      */
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+    }
+
+    /**
+     * Update profile details (fullName and phoneNumber) for a user.
+     * Note: Email cannot be changed.
+     */
+    public User updateProfile(String email, String fullName, String phoneNumber) {
+        User user = getUserByEmail(email);
+
+        if (fullName == null || fullName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Full name cannot be empty.");
+        }
+
+        user.setFullName(fullName.trim());
+        user.setPhoneNumber(phoneNumber != null ? phoneNumber.trim() : null);
+
+        return userRepository.save(user);
+    }
+
+    /**
+     * Change password for the logged-in user.
+     *
+     * Validates:
+     * 1. Current password is correct (using BCrypt matches).
+     * 2. New password meets length requirement (min 6 characters).
+     * 3. New password matches confirmation password.
+     */
+    public User changePassword(String email, String currentPassword, String newPassword, String confirmPassword) {
+        User user = getUserByEmail(email);
+
+        if (currentPassword == null || currentPassword.isEmpty()) {
+            throw new IllegalArgumentException("Current password is required.");
+        }
+
+        if (newPassword == null || newPassword.length() < 6) {
+            throw new IllegalArgumentException("New password must be at least 6 characters long.");
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            throw new IllegalArgumentException("New password and confirm password do not match.");
+        }
+
+        // Verify current password against stored BCrypt hash
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect.");
+        }
+
+        // Hash new password using BCrypt and save
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return userRepository.save(user);
     }
 
     /**

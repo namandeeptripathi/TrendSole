@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile — TrendSole</title>
+    <meta name="description" content="Manage your account profile, update contact information, and security settings on TrendSole.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* Profile page custom styles adhering to TrendSole design system */
+        .profile-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .profile-header-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(167, 139, 250, 0.03) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .avatar-wrapper {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-glow);
+            flex-shrink: 0;
+        }
+
+        .user-info-meta h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .user-info-meta .meta-item {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            margin-right: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .role-badge {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--text-accent);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--radius-full);
+            padding: 3px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-title-custom {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 12px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border: 1px solid var(--glass-border) !important;
+            color: var(--text-primary) !important;
+            border-radius: var(--radius-md) !important;
+            padding: 12px 16px !important;
+            font-size: 0.9rem;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .form-control:focus {
+            border-color: rgba(99, 102, 241, 0.4) !important;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15) !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .form-control:disabled,
+        .form-control[readonly] {
+            background: rgba(255, 255, 255, 0.01) !important;
+            border-color: rgba(255, 255, 255, 0.04) !important;
+            color: var(--text-muted) !important;
+            cursor: not-allowed;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+            z-index: 2;
+        }
+
+        .password-toggle:hover {
+            color: var(--text-primary);
+        }
+
+        .alert-custom {
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-error {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: #ff8a9e;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #a7f3d0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">⚡ TRENDSOLE</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=Footwear"><i class="bi bi-shoe-prints"></i> Footwear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Clothing"><i class="bi bi-tag"></i> Clothing</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Accessories"><i class="bi bi-watch"></i> Accessories</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Bags"><i class="bi bi-bag"></i> Bags</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=Activewear"><i class="bi bi-lightning-charge"></i> Activewear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?sort=new">New Arrivals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#sale-section" style="color: var(--accent-rose);">Sale</a></li>
+                    
+                    <!-- Auth: Guest -->
+                    <li class="nav-item auth-guest"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item auth-guest"><a class="nav-link" href="register.html">Register</a></li>
+                    
+                    <!-- Auth: Logged In -->
+                    <li class="nav-item dropdown auth-user" style="display:none;">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> <span class="nav-user-name">My Profile</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="profile.html"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="handleLogout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="products.html?view=wishlist"><i class="bi bi-heart"></i> <span class="wishlist-badge" id="wishlistCount" style="display:none;">0</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-bag"></i> <span class="cart-badge" id="cartCount">0</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container text-center">
+            <h1><i class="bi bi-person-badge me-2"></i>Account Management</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 mt-2 justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">My Profile</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="section-padding">
+        <div class="container">
+            <div class="profile-container">
+
+                <!-- User Profile Summary Header -->
+                <div class="profile-header-card reveal">
+                    <div class="avatar-wrapper" id="avatarDisplay">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="user-info-meta flex-grow-1">
+                        <div class="d-flex align-items-center gap-3 flex-wrap mb-1">
+                            <h2 id="headerFullName">Loading...</h2>
+                            <span class="role-badge" id="headerRole">USER</span>
+                        </div>
+                        <div>
+                            <span class="meta-item"><i class="bi bi-envelope"></i> <span id="headerEmail">---</span></span>
+                            <span class="meta-item"><i class="bi bi-calendar-event"></i> Joined <span id="headerJoined">---</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Column 1: Edit Profile Form -->
+                    <div class="col-lg-6">
+                        <div class="profile-card reveal">
+                            <h3 class="card-title-custom">
+                                <i class="bi bi-person-lines-fill text-primary"></i> Edit Personal Details
+                            </h3>
+
+                            <div class="alert-custom alert-error" id="profileError">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span id="profileErrorMsg">Failed to update profile.</span>
+                            </div>
+                            <div class="alert-custom alert-success" id="profileSuccess">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Profile updated successfully!</span>
+                            </div>
+
+                            <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                                <!-- Full Name -->
+                                <div class="mb-3">
+                                    <label for="fullName" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                                </div>
+
+                                <!-- Email (Read Only) -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address (Read-Only)</label>
+                                    <input type="email" class="form-control" id="email" disabled readonly>
+                                    <small class="text-muted mt-1 d-block"><i class="bi bi-info-circle me-1"></i>Email address cannot be changed.</small>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div class="mb-4">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
+                                </div>
+
+                                <button type="submit" class="btn-primary-custom w-100 justify-content-center" id="saveProfileBtn">
+                                    <i class="bi bi-check2-circle me-1"></i> Save Changes
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Change Password Form -->
+                    <div class="col-lg-6">
+                        <div class="profile-card reveal" style="transition-delay: 0.1s;">
+                            <h3 class="card-title-custom">
+                                <i class="bi bi-shield-lock-fill text-warning"></i> Change Password
+                            </h3>
+
+                            <div class="alert-custom alert-error" id="passwordError">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span id="passwordErrorMsg">Password change failed.</span>
+                            </div>
+                            <div class="alert-custom alert-success" id="passwordSuccess">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Password updated successfully!</span>
+                            </div>
+
+                            <form id="passwordForm" onsubmit="handleChangePassword(event)">
+                                <!-- Current Password -->
+                                <div class="mb-3">
+                                    <label for="currentPassword" class="form-label">Current Password *</label>
+                                    <div class="password-wrapper">
+                                        <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password" required style="padding-right: 46px !important;">
+                                        <button type="button" class="password-toggle" onclick="togglePassword('currentPassword', 'currIcon')">
+                                            <i class="bi bi-eye" id="currIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- New Password -->
+                                <div class="mb-3">
+                                    <label for="newPassword" class="form-label">New Password *</label>
+                                    <div class="password-wrapper">
+                                        <input type="password" class="form-control" id="newPassword" placeholder="Minimum 6 characters" required style="padding-right: 46px !important;">
+                                        <button type="button" class="password-toggle" onclick="togglePassword('newPassword', 'newIcon')">
+                                            <i class="bi bi-eye" id="newIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Confirm New Password -->
+                                <div class="mb-4">
+                                    <label for="confirmPassword" class="form-label">Confirm New Password *</label>
+                                    <div class="password-wrapper">
+                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter new password" required style="padding-right: 46px !important;">
+                                        <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword', 'confIcon')">
+                                            <i class="bi bi-eye" id="confIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-primary-custom w-100 justify-content-center" id="changePasswordBtn" style="background: var(--gradient-gold);">
+                                    <i class="bi bi-key me-1"></i> Update Password
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom mt-0 pt-0 border-0 text-center">
+                <p>© 2026 TrendSole. All rights reserved.</p>
+                <p>Made with ❤️ for Fashion Lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toast"></div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            loadUserProfile();
+        });
+
+        function updateCartCount() {
+            fetch(API_BASE + '/cart')
+                .then(r => r.json())
+                .then(items => {
+                    var total = 0;
+                    items.forEach(item => total += item.quantity);
+                    document.getElementById('cartCount').textContent = total;
+                })
+                .catch(() => { document.getElementById('cartCount').textContent = '0'; });
+        }
+
+        // Load profile data from /api/users/profile
+        function loadUserProfile() {
+            fetch(API_BASE + '/users/profile', {
+                method: 'GET',
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                // Unauthenticated -> redirect to login
+                window.location.href = 'login.html';
+            })
+            .then(user => {
+                if (!user) return;
+
+                // Set header card details
+                document.getElementById('headerFullName').textContent = user.fullName || 'User Profile';
+                document.getElementById('headerEmail').textContent = user.email || 'N/A';
+                document.getElementById('headerRole').textContent = user.role || 'USER';
+
+                if (user.createdAt) {
+                    const date = new Date(user.createdAt);
+                    document.getElementById('headerJoined').textContent = date.toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'short', day: 'numeric'
+                    });
+                } else {
+                    document.getElementById('headerJoined').textContent = 'Recent Member';
+                }
+
+                // Set form fields
+                document.getElementById('fullName').value = user.fullName || '';
+                document.getElementById('email').value = user.email || '';
+                document.getElementById('phoneNumber').value = user.phoneNumber || '';
+            })
+            .catch(err => {
+                console.error('Error loading profile:', err);
+                window.location.href = 'login.html';
+            });
+        }
+
+        // Toggle password input visibility
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
+        // Handle Profile Edit Submission
+        function handleProfileUpdate(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+            const profileError = document.getElementById('profileError');
+            const profileSuccess = document.getElementById('profileSuccess');
+            const btn = document.getElementById('saveProfileBtn');
+
+            profileError.style.display = 'none';
+            profileSuccess.style.display = 'none';
+
+            if (!fullName) {
+                document.getElementById('profileErrorMsg').textContent = 'Full Name cannot be empty.';
+                profileError.style.display = 'flex';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+
+            fetch(API_BASE + '/users/profile', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ fullName: fullName, phoneNumber: phoneNumber })
+            })
+            .then(res => {
+                if (res.ok) return res.json();
+                return res.text().then(t => { throw new Error(t || 'Failed to update profile'); });
+            })
+            .then(user => {
+                profileSuccess.style.display = 'flex';
+                showToast('✅ Profile updated successfully!');
+
+                // Update UI elements
+                document.getElementById('headerFullName').textContent = user.fullName;
+                const firstName = user.fullName ? user.fullName.split(' ')[0] : 'Profile';
+                document.querySelectorAll('.nav-user-name').forEach(el => el.textContent = firstName);
+            })
+            .catch(err => {
+                document.getElementById('profileErrorMsg').textContent = err.message;
+                profileError.style.display = 'flex';
+                showToast('❌ Update failed');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-check2-circle me-1"></i> Save Changes';
+            });
+        }
+
+        // Handle Password Change Submission
+        function handleChangePassword(event) {
+            event.preventDefault();
+
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            const passwordError = document.getElementById('passwordError');
+            const passwordSuccess = document.getElementById('passwordSuccess');
+            const btn = document.getElementById('changePasswordBtn');
+
+            passwordError.style.display = 'none';
+            passwordSuccess.style.display = 'none';
+
+            if (newPassword.length < 6) {
+                document.getElementById('passwordErrorMsg').textContent = 'New password must be at least 6 characters long.';
+                passwordError.style.display = 'flex';
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                document.getElementById('passwordErrorMsg').textContent = 'New password and confirm password do not match.';
+                passwordError.style.display = 'flex';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Updating...';
+
+            fetch(API_BASE + '/users/change-password', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    currentPassword: currentPassword,
+                    newPassword: newPassword,
+                    confirmPassword: confirmPassword
+                })
+            })
+            .then(res => {
+                if (res.ok) return res.json();
+                return res.text().then(t => {
+                    let msg = t;
+                    try {
+                        const json = JSON.parse(t);
+                        if (json && json.message) msg = json.message;
+                    } catch (e) {}
+                    throw new Error(msg || 'Password change failed');
+                });
+            })
+            .then(data => {
+                passwordSuccess.style.display = 'flex';
+                showToast('🔑 Password changed successfully!');
+                document.getElementById('passwordForm').reset();
+            })
+            .catch(err => {
+                document.getElementById('passwordErrorMsg').textContent = err.message;
+                passwordError.style.display = 'flex';
+                showToast('❌ Password change failed');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-key me-1"></i> Update Password';
+            });
+        }
+    </script>
+</body>
+</html>
