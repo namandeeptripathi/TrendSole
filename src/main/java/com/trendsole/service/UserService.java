@@ -53,10 +53,25 @@ public class UserService {
      * @throws IllegalArgumentException if the email is already registered.
      */
     public User registerUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Registration request cannot be empty.");
+        }
+        if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Full name is required.");
+        }
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("Email address is required.");
+        }
+        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("Password is required.");
+        }
+
         // Step 1: Check if email is already taken
-        if (userRepository.existsByEmail(user.getEmail())) {
+        if (userRepository.existsByEmail(user.getEmail().trim())) {
             throw new IllegalArgumentException("Email is already registered: " + user.getEmail());
         }
+        user.setEmail(user.getEmail().trim());
+        user.setFullName(user.getFullName().trim());
 
         // Step 2: Hash the password using BCrypt
         user.setPassword(passwordEncoder.encode(user.getPassword()));

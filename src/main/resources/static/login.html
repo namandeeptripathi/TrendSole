@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create an Account — TrendSole</title>
-    <meta name="description" content="Register an account with TrendSole to start shopping premium luxury footwear, clothing, and accessories.">
+    <title>Login — TrendSole</title>
+    <meta name="description" content="Log in to your TrendSole account to access your profile, track orders, and enjoy a personalized shopping experience.">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,24 +14,24 @@
     <link href="css/style.css" rel="stylesheet">
     
     <style>
-        /* Extra styles specifically for the Register page to make it stand out */
-        .register-container {
-            max-width: 500px;
+        /* Login page specific styles — matching register.html design pattern */
+        .login-container {
+            max-width: 480px;
             margin: 0 auto;
         }
         
-        .register-card {
+        .login-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(var(--glass-blur));
             border-radius: var(--radius-xl);
-            padding: 40px;
+            padding: 44px;
             box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
         }
 
-        .register-card::before {
+        .login-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -43,12 +43,12 @@
             z-index: 0;
         }
 
-        .register-card * {
+        .login-card * {
             position: relative;
             z-index: 1;
         }
 
-        .register-card h2 {
+        .login-card h2 {
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
             margin-bottom: 8px;
@@ -58,7 +58,7 @@
             background-clip: text;
         }
 
-        .register-card .subtitle {
+        .login-card .subtitle {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-bottom: 30px;
@@ -123,6 +123,64 @@
             align-items: center;
             gap: 10px;
         }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        .register-link {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+
+        .register-link a {
+            color: var(--text-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .register-link a:hover {
+            color: var(--accent-1);
+            text-decoration: underline;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+            transition: color 0.2s ease;
+            z-index: 2;
+        }
+
+        .password-toggle:hover {
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
@@ -152,10 +210,10 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="products.html?sort=new">New Arrivals</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#sale-section" style="color: var(--accent-rose);">Sale</a></li>
-                    <!-- Auth: Guest -->
-                    <li class="nav-item auth-guest"><a class="nav-link" href="login.html">Login</a></li>
-                    <li class="nav-item auth-guest"><a class="nav-link active" href="register.html">Register</a></li>
-                    <!-- Auth: Logged In -->
+                    <!-- Auth: Guest (visible by default) -->
+                    <li class="nav-item auth-guest"><a class="nav-link active" href="login.html">Login</a></li>
+                    <li class="nav-item auth-guest"><a class="nav-link" href="register.html">Register</a></li>
+                    <!-- Auth: Logged In (hidden by default, shown by auth.js) -->
                     <li class="nav-item dropdown auth-user" style="display:none;">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle"></i> <span class="nav-user-name">My Profile</span>
@@ -176,11 +234,11 @@
     <!-- ========== PAGE HEADER ========== -->
     <section class="page-header">
         <div class="container text-center">
-            <h1><i class="bi bi-person-plus me-2"></i>Join TrendSole</h1>
+            <h1><i class="bi bi-box-arrow-in-right me-2"></i>Welcome Back</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 mt-2 justify-content-center">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Register</li>
+                    <li class="breadcrumb-item active">Login</li>
                 </ol>
             </nav>
         </div>
@@ -189,31 +247,24 @@
     <!-- ========== MAIN CONTENT ========== -->
     <main class="section-padding">
         <div class="container">
-            <div class="register-container">
-                <div class="register-card reveal">
-                    <h2>Create Account</h2>
-                    <p class="subtitle">Join our community for a premium shopping experience</p>
+            <div class="login-container">
+                <div class="login-card reveal">
+                    <h2>Sign In</h2>
+                    <p class="subtitle">Access your account for a personalized shopping experience</p>
                     
                     <!-- Alert Messages -->
                     <div class="alert-error" id="formError">
                         <i class="bi bi-exclamation-triangle-fill"></i>
-                        <span id="errorMessage">Please check your inputs and try again.</span>
+                        <span id="errorMessage">Invalid email or password.</span>
                     </div>
                     
                     <div class="alert-success" id="formSuccess">
                         <i class="bi bi-check-circle-fill"></i>
-                        <span>Registration successful! Redirecting you...</span>
+                        <span>Login successful! Redirecting you...</span>
                     </div>
 
-                    <!-- Registration Form -->
-                    <form id="registerForm" novalidate onsubmit="handleRegistration(event)">
-                        <!-- Full Name -->
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name *</label>
-                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
-                            <div class="invalid-feedback" id="nameError">Full name is required.</div>
-                        </div>
-
+                    <!-- Login Form -->
+                    <form id="loginForm" novalidate onsubmit="handleLogin(event)">
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address *</label>
@@ -221,32 +272,29 @@
                             <div class="invalid-feedback" id="emailError">Please enter a valid email address.</div>
                         </div>
 
-                        <!-- Phone Number -->
-                        <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number (e.g. +91 98765 43210)">
-                            <div class="invalid-feedback" id="phoneError">Please enter a valid phone number.</div>
-                        </div>
-
                         <!-- Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password *</label>
-                            <input type="password" class="form-control" id="password" placeholder="Create a strong password" required>
-                            <div class="invalid-feedback" id="passwordError">Password must be at least 6 characters long.</div>
-                        </div>
-
-                        <!-- Confirm Password -->
                         <div class="mb-4">
-                            <label for="confirmPassword" class="form-label">Confirm Password *</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
-                            <div class="invalid-feedback" id="confirmError">Passwords do not match.</div>
+                            <label for="password" class="form-label">Password *</label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required style="padding-right: 46px !important;">
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                                    <i class="bi bi-eye" id="passwordIcon"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback" id="passwordError">Password is required.</div>
                         </div>
 
                         <!-- Submit Button -->
                         <button type="submit" class="btn-primary-custom w-100 justify-content-center" id="submitBtn">
-                            <i class="bi bi-person-check"></i> Register Account
+                            <i class="bi bi-box-arrow-in-right"></i> Sign In
                         </button>
                     </form>
+
+                    <div class="divider">or</div>
+
+                    <p class="register-link">
+                        Don't have an account? <a href="register.html">Create one</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -298,18 +346,29 @@
             }
         }
 
-        // Handle Registration
-        function handleRegistration(event) {
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            var icon = document.getElementById('passwordIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
+        // Handle Login
+        function handleLogin(event) {
             event.preventDefault();
             
             // Elements
-            const form = document.getElementById('registerForm');
-            const fullNameInput = document.getElementById('fullName');
             const emailInput = document.getElementById('email');
-            const phoneInput = document.getElementById('phoneNumber');
             const passwordInput = document.getElementById('password');
-            const confirmInput = document.getElementById('confirmPassword');
-            
             const formError = document.getElementById('formError');
             const errorMessage = document.getElementById('errorMessage');
             const formSuccess = document.getElementById('formSuccess');
@@ -319,21 +378,10 @@
             let isValid = true;
             formError.style.display = 'none';
             formSuccess.style.display = 'none';
-            
-            fullNameInput.classList.remove('is-invalid');
             emailInput.classList.remove('is-invalid');
-            phoneInput.classList.remove('is-invalid');
             passwordInput.classList.remove('is-invalid');
-            confirmInput.classList.remove('is-invalid');
 
-            // 1. Validate Full Name
-            const fullName = fullNameInput.value.trim();
-            if (!fullName) {
-                fullNameInput.classList.add('is-invalid');
-                isValid = false;
-            }
-
-            // 2. Validate Email format
+            // 1. Validate Email format
             const email = emailInput.value.trim();
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email || !emailRegex.test(email)) {
@@ -341,27 +389,10 @@
                 isValid = false;
             }
 
-            // 3. Validate Phone Number (Optional, but if filled, should have standard length/digits)
-            const phoneNumber = phoneInput.value.trim();
-            if (phoneNumber) {
-                const phoneRegex = /^[+]?[0-9\s\-()]{7,20}$/;
-                if (!phoneRegex.test(phoneNumber)) {
-                    phoneInput.classList.add('is-invalid');
-                    isValid = false;
-                }
-            }
-
-            // 4. Validate Password length (minimum 6 characters)
+            // 2. Validate Password is not empty
             const password = passwordInput.value;
-            if (!password || password.length < 6) {
+            if (!password) {
                 passwordInput.classList.add('is-invalid');
-                isValid = false;
-            }
-
-            // 5. Validate Password Confirmation
-            const confirmPassword = confirmInput.value;
-            if (password !== confirmPassword) {
-                confirmInput.classList.add('is-invalid');
                 isValid = false;
             }
 
@@ -371,76 +402,47 @@
 
             // Lock submit button
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registering...';
-
-            // Construct payload
-            const payload = {
-                fullName: fullName,
-                email: email,
-                password: password,
-                phoneNumber: phoneNumber || null
-            };
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Signing In...';
 
             // Call API
-            fetch(API_BASE + '/users/register', {
+            fetch(API_BASE + '/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(payload)
+                credentials: 'include',
+                body: JSON.stringify({ email: email, password: password })
             })
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 }
-                // Handle non-2xx errors (like 400 Bad Request for duplicate email or validation error)
-                return response.text().then(text => {
-                    let detailMsg = text;
-                    try {
-                        const parsed = JSON.parse(text);
-                        if (parsed && parsed.message) {
-                            detailMsg = parsed.message;
-                        } else if (parsed && parsed.error) {
-                            detailMsg = parsed.error;
-                        }
-                    } catch (e) {
-                        // Response is plain text
-                    }
-                    throw new Error(detailMsg || 'Registration failed. Please try again.');
+                // Handle 401 Unauthorized
+                return response.json().then(data => {
+                    throw new Error(data.message || 'Invalid email or password');
                 });
             })
             .then(data => {
                 // Show Success
                 formSuccess.style.display = 'flex';
-                showToast('🎉 Account registered successfully!');
+                showToast('🎉 Welcome back, ' + (data.fullName ? data.fullName.split(' ')[0] : '') + '!');
                 
-                // Clear form
-                form.reset();
-                
-                // Redirect to homepage after 2 seconds
+                // Redirect to homepage after 1.5 seconds
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 2000);
+                }, 1500);
             })
             .catch(error => {
-                // Show Error
-                console.error('Registration Error:', error);
-                
-                let msg = error.message;
-                if (msg.includes('Email is already registered')) {
-                    emailInput.classList.add('is-invalid');
-                    errorMessage.textContent = 'This email is already registered. Please use another one.';
-                } else {
-                    errorMessage.textContent = msg;
-                }
-                
+                // Show generic error — never reveal whether email or password was wrong
+                console.error('Login Error:', error);
+                errorMessage.textContent = 'Invalid email or password';
                 formError.style.display = 'flex';
-                showToast('❌ ' + (msg.includes('Email is already registered') ? 'Email already registered' : msg));
+                showToast('❌ Login failed');
             })
             .finally(() => {
                 // Unlock submit button
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="bi bi-person-check"></i> Register Account';
+                submitBtn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Sign In';
             });
         }
     </script>

@@ -48,6 +48,20 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- ================================================
+-- Table 4: users
+-- Stores user accounts
+-- ================================================
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- Unique ID for each user
+    full_name VARCHAR(255) NOT NULL,        -- Full name of the user
+    email VARCHAR(255) NOT NULL UNIQUE,     -- Unique email address
+    password VARCHAR(255) NOT NULL,         -- BCrypt hashed password
+    phone_number VARCHAR(20),               -- Phone number (optional)
+    role VARCHAR(20) NOT NULL,              -- Role (USER, ADMIN)
+    created_at DATETIME NOT NULL            -- Timestamp of registration
+);
+
+-- ================================================
 -- Insert some sample products (for testing)
 -- ================================================
 INSERT INTO products (name, description, price, category, image_url, stock) VALUES

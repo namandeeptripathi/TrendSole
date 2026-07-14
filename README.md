@@ -5,7 +5,7 @@ TrendSole is a high-end, responsive, and production-ready **E-Commerce Web Appli
 ---
 
 ## 🚀 Features
-
+(src/main/resources/application.properties)
 ### 💎 Frontend UI & Shopping Experience (Vanilla HTML5/CSS3/ES6)
 *   **Editorial Typography & Visual Hierarchy**: Styled with tight editorial tracking (`letter-spacing: -0.04em`), contrasting light-and-bold Outfit typography weights, and generous spacing layout configurations.
 *   **Dynamic Glassmorphic Product Cards**:

@@ -28,7 +28,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -110,5 +109,18 @@ public class UserController {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    /**
+     * General exception handler for any unhandled registration/user error.
+     * Returns a 400 Bad Request status with the exact exception message.
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(Exception ex) {
+        String msg = ex.getMessage();
+        if (msg == null || msg.isBlank()) {
+            msg = "Registration error: " + ex.getClass().getSimpleName();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(msg);
     }
 }
