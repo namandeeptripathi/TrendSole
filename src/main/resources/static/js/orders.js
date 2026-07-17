@@ -159,25 +159,36 @@ function openOrderDetails(orderId) {
 }
 
 function getStatusBadge(status) {
-    const st = (status || 'Pending').toLowerCase();
+    const st = (status || 'Pending').toLowerCase().trim();
     let statusClass = 'status-pending';
     let icon = 'bi-clock-history';
+    let displayTitle = status || 'Pending';
 
-    if (st.includes('process')) {
-        statusClass = 'status-processing';
-        icon = 'bi-gear-fill';
+    if (st.includes('confirm')) {
+        statusClass = 'status-confirmed';
+        icon = 'bi-check2-square';
+        displayTitle = 'Confirmed';
     } else if (st.includes('ship')) {
         statusClass = 'status-shipped';
         icon = 'bi-truck';
+        displayTitle = 'Shipped';
     } else if (st.includes('deliver')) {
         statusClass = 'status-delivered';
         icon = 'bi-check-circle-fill';
+        displayTitle = 'Delivered';
     } else if (st.includes('cancel')) {
         statusClass = 'status-cancelled';
         icon = 'bi-x-circle-fill';
+        displayTitle = 'Cancelled';
+    } else if (st.includes('process')) {
+        statusClass = 'status-processing';
+        icon = 'bi-gear-fill';
+        displayTitle = 'Processing';
+    } else {
+        displayTitle = 'Pending';
     }
 
-    return `<span class="status-badge ${statusClass}"><i class="bi ${icon}"></i>${status || 'Pending'}</span>`;
+    return `<span class="status-badge ${statusClass}"><i class="bi ${icon}"></i>${displayTitle}</span>`;
 }
 
 function formatDate(dateStr) {

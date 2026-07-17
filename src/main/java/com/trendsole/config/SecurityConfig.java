@@ -113,10 +113,14 @@ public class SecurityConfig {
                 // 2. Authentication endpoints — always public (login, logout, session check)
                 .requestMatchers("/api/auth/**").permitAll()
 
-                // 3. Authenticated profile, address, and order history endpoints
+                // 3. Authenticated profile, address, order history, and return endpoints
                 .requestMatchers("/api/users/profile", "/api/users/change-password").authenticated()
                 .requestMatchers("/api/addresses", "/api/addresses/**").authenticated()
                 .requestMatchers("/api/orders/my-orders", "/api/orders/my-orders/**").authenticated()
+                .requestMatchers("/api/returns", "/api/returns/**").authenticated()
+                .requestMatchers("/api/admin/returns", "/api/admin/returns/**").hasRole("ADMIN")
+                .requestMatchers("/api/exchanges", "/api/exchanges/**").authenticated()
+                .requestMatchers("/api/admin/exchanges", "/api/admin/exchanges/**").hasRole("ADMIN")
 
                 // 4. User administration endpoints — require authentication
                 .requestMatchers("/api/users", "/api/users/**").authenticated()

@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS orders (
     status VARCHAR(50) NOT NULL DEFAULT 'Pending', -- Order status (Pending, Processing, etc.)
     total_amount DOUBLE NOT NULL,             -- Total price of the order
     order_date DATETIME DEFAULT CURRENT_TIMESTAMP, -- When the order was placed
+    cancelled_at DATETIME DEFAULT NULL,       -- When the order was cancelled
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
@@ -64,6 +65,79 @@ CREATE TABLE IF NOT EXISTS order_items (
     price DOUBLE NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- ================================================
+-- Table 3c: order_status_history
+-- Stores audit trail of order status changes
+-- ================================================
+CREATE TABLE IF NOT EXISTS order_status_history (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    updated_at DATETIME NOT NULL,
+    updated_by VARCHAR(50) NOT NULL,
+    remarks VARCHAR(255),
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    INDEX idx_osh_order_updated (order_id, updated_at)
+);
+
+-- ================================================
+-- Table 3d: return_requests & return_request_images
+-- Stores return requests, images, inspection & refund statuses
+-- ================================================
+CREATE TABLE IF NOT EXISTS return_requests (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    return_number VARCHAR(100) NOT NULL UNIQUE,
+    order_id BIGINT NOT NULL,
+    order_item_id BIGINT,
+    customer_id BIGINT,
+    reason VARCHAR(255) NOT NULL,
+    description TEXT,
+    return_status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    inspection_status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    refund_status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    admin_remarks VARCHAR(255),
+    requested_at DATETIME NOT NULL,
+    updated_at DATETIME,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (order_item_id) REFERENCES order_items(id) ON DELETE SET NULL,
+    FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS return_request_images (
+    return_request_id BIGINT NOT NULL,
+    image_url VARCHAR(500) NOT NULL,
+    FOREIGN KEY (return_request_id) REFERENCES return_requests(id) ON DELETE CASCADE
+);
+
+-- ================================================
+-- Table 3e: exchange_requests & exchange_request_images
+-- Stores product exchange requests and image attachments
+-- ================================================
+CREATE TABLE IF NOT EXISTS exchange_requests (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    exchange_number VARCHAR(100) NOT NULL UNIQUE,
+    order_id BIGINT NOT NULL,
+    order_item_id BIGINT NOT NULL,
+    customer_id BIGINT,
+    exchange_reason VARCHAR(255) NOT NULL,
+    description TEXT,
+    requested_size VARCHAR(50),
+    requested_color VARCHAR(50),
+    exchange_status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    admin_remarks VARCHAR(255),
+    requested_at DATETIME NOT NULL,
+    updated_at DATETIME,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (order_item_id) REFERENCES order_items(id) ON DELETE CASCADE,
+    FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS exchange_request_images (
+    exchange_request_id BIGINT NOT NULL,
+    image_url VARCHAR(500) NOT NULL,
+    FOREIGN KEY (exchange_request_id) REFERENCES exchange_requests(id) ON DELETE CASCADE
 );
 
 

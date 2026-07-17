@@ -51,8 +51,9 @@ public class Order {
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status = "Pending";
+    private OrderStatus status = OrderStatus.PENDING;
 
     @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
@@ -60,8 +61,15 @@ public class Order {
     @Column(name = "order_date")
     private LocalDateTime orderDate;
 
+    @Column(name = "cancelled_at")
+    private LocalDateTime cancelledAt;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("order")
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("order")
+    private List<OrderStatusHistory> statusHistory = new ArrayList<>();
 }
 
