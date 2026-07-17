@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo/trendsole-logo.png" width="220" alt="TrendSole Logo"/>
+  <img src="screenshots/trendsole-logo.png" width="220" alt="TrendSole Logo">
 </p>
 
 <h1 align="center">TrendSole</h1>
@@ -344,38 +344,36 @@ Complete Request
 
 # 📸 Screenshots
 
-Add screenshots inside:
+## 🏠 Home
 
-```text
-screenshots/
-│
-├── home.png
-├── login.png
-├── register.png
-├── products.png
-├── cart.png
-├── wishlist.png
-├── checkout.png
-├── orders.png
-├── invoice.png
-├── returns.png
-├── exchanges.png
-├── swagger.png
-└── admin.png
-```
-
-Example
-
-```md
 ![Home](screenshots/home.png)
+
+---
+
+## 📂 Categories
+
+![Categories](screenshots/categories.png)
+
+---
+
+## 🛍 Products
 
 ![Products](screenshots/products.png)
 
+---
+
+## 🛒 Shopping Cart
+
 ![Cart](screenshots/cart.png)
 
-![Orders](screenshots/orders.png)
+---
 
-![Swagger](screenshots/swagger.png)
+## 💳 Checkout
+
+![Checkout](screenshots/checkout.png)
+
+
+
 ```
 
 ---
