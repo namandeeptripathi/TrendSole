@@ -36,6 +36,28 @@ The application follows a layered architecture with RESTful APIs and demonstrate
 
 ---
 
+## 🌟 Project Highlights
+
+| Feature | Status |
+|----------|:------:|
+| 🔐 JWT Authentication & Authorization | ✅ |
+| 👥 Role-Based Access Control | ✅ |
+| 🛍 Product & Category Management | ✅ |
+| 🛒 Shopping Cart & Wishlist | ✅ |
+| 📍 Address Management | ✅ |
+| 📦 Complete Order Lifecycle | ✅ |
+| 🧾 PDF Invoice Generation | ✅ |
+| 🔄 Return Management Workflow | ✅ |
+| 🔁 Exchange Management Workflow | ✅ |
+| 📧 Email Notifications | ✅ |
+| 📂 File Upload Support | ✅ |
+| 📖 Swagger API Documentation | ✅ |
+| 🐳 Docker Support | ✅ |
+| 🛡 Global Exception Handling | ✅ |
+| 🗄 MySQL + Spring Data JPA | ✅ |
+
+---
+
 # ✨ Key Features
 
 | Module | Highlights |
@@ -72,22 +94,51 @@ The application follows a layered architecture with RESTful APIs and demonstrate
 
 ---
 
-# 🏗 Architecture
+# 🏗️ System Architecture
+
+```text
+                        Client
+                          │
+                          ▼
+                 Spring Boot REST APIs
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+ Authentication      Business Logic     Validation
+                          │
+                          ▼
+                    Service Layer
+                          │
+                          ▼
+                  Repository Layer
+                          │
+                          ▼
+                     MySQL Database
+```
+
+### Request Flow
 
 ```text
 Client
    │
-   ▼
-REST Controllers
+HTTP Request
    │
-   ▼
-Service Layer
+Controller
    │
-   ▼
-Repository Layer
+Service
    │
-   ▼
-MySQL Database
+Repository
+   │
+MySQL
+   │
+Repository
+   │
+Service
+   │
+Controller
+   │
+HTTP Response
+
 ```
 
 The project follows a clean layered architecture with clear separation between controllers, services, repositories, and entities.
