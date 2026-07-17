@@ -17,8 +17,13 @@ Enterprise-Inspired Fashion E-Commerce Platform built with Spring Boot
 ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=for-the-badge&logo=swagger)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
 
-</p>
+![GitHub Repo stars](https://img.shields.io/github/stars/namandeeptripathi/TrendSole?style=for-the-badge)
+![GitHub Forks](https://img.shields.io/github/forks/namandeeptripathi/TrendSole?style=for-the-badge)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/namandeeptripathi/TrendSole?style=for-the-badge)
+![GitHub Issues](https://img.shields.io/github/issues/namandeeptripathi/TrendSole?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/namandeeptripathi/TrendSole?style=for-the-badge)
 
+</p>
 ---
 
 ## 🚀 Overview
