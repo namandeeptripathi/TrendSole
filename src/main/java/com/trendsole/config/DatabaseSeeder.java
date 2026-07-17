@@ -6,28 +6,36 @@ import com.trendsole.repository.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
 /**
  * DatabaseSeeder - Automatically populates the database with initial
- * product data if it is empty. This works for both MySQL and H2 databases.
+ * product data if it is empty. Optimized for fast startup and batch insertion.
  */
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Autowired
-    private CartItemRepository cartItemRepository;
+    public DatabaseSeeder(ProductRepository productRepository, CartItemRepository cartItemRepository) {
+        this.productRepository = productRepository;
+        this.cartItemRepository = cartItemRepository;
+    }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
-        if (productRepository.count() != 72) {
-            System.out.println("🌱 Database count is " + productRepository.count() + " (not 72). Resetting and re-seeding...");
-            cartItemRepository.deleteAll();
-            productRepository.deleteAll();
+        long currentCount = productRepository.count();
+        if (currentCount != 72) {
+            System.out.println("🌱 Database count is " + currentCount + " (not 72). Resetting and re-seeding...");
+            if (currentCount > 0) {
+                cartItemRepository.deleteAllInBatch();
+                productRepository.deleteAllInBatch();
+            }
             Product[] products = new Product[] {
                 // Category: Footwear (Set A - 12 items)
                 new Product(null, "Nike Air Max 90 Premium", "Classic Nike sneakers with Air cushioning for all-day comfort.", 12999.00, "Footwear", "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", 25),
